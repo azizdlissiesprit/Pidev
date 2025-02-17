@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Reponsequiz{% endblock %}
+
+{% block body %}
+    <h1>Create new Reponsequiz</h1>
+
+    {{ include('reponsequiz/_form.html.twig') }}
+
+    <a href="{{ path('app_reponsequiz_index') }}">back to list</a>
+{% endblock %}

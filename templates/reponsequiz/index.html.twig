@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reponsequiz index{% endblock %}
+
+{% block body %}
+    <h1>Reponsequiz index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_rep</th>
+                <th>Id_question</th>
+                <th>Reponse_choisie</th>
+                <th>Est_correcte</th>
+                <th>Date_reponse</th>
+                <th>Points</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reponsequiz in reponsequizzes %}
+            <tr>
+                <td>{{ reponsequiz.idRep }}</td>
+                <td>{{ reponsequiz.idQuestion }}</td>
+                <td>{{ reponsequiz.reponseChoisie }}</td>
+                <td>{{ reponsequiz.estCorrecte ? 'Yes' : 'No' }}</td>
+                <td>{{ reponsequiz.dateReponse ? reponsequiz.dateReponse|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ reponsequiz.points }}</td>
+                <td>
+                    <a href="{{ path('app_reponsequiz_show', {'id_rep': reponsequiz.id_rep}) }}">show</a>
+                    <a href="{{ path('app_reponsequiz_edit', {'id_rep': reponsequiz.id_rep}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reponsequiz_new') }}">Create new</a>
+{% endblock %}

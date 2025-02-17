@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">Welcome to the Homepage</h1>
+
+    {% for post in posts %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">{{ post.title }}</h2>
+                <p class="card-text">{{ post.content }}</p>
+                
+                <h4>Comments:</h4>
+                {% for comment in post.comments %}
+                    <div class="mb-2">
+                        <p>{{ comment.content }}</p>
+                        <small class="text-muted">Posted on: {{ comment.createdAt|date('Y-m-d H:i') }}</small>
+                    </div>
+                {% else %}
+                    <p>No comments yet.</p>
+                {% endfor %}
+
+                <h5>Leave a comment:</h5>
+                {{ form_start(forms[post.id], {'action': path('app_comment_new')}) }}
+                    {{ form_row(forms[post.id].content, {
+                        'attr': {
+                            'class': forms[post.id].content.vars.errors|length > 0 ? 'form-control is-invalid' : 'form-control',
+                            'placeholder': 'Write your comment...',
+                            'required': 'required',  # Ensures the field is not empty
+                            'minlength': '5',  # Minimum length for the comment
+                            'maxlength': '500',  # Maximum length for the comment
+                            'pattern': '[a-zA-Z0-9 ]*'  # Example pattern: allows only letters and spaces
+                        }
+                    }) }}
+
+                    {# Display errors for the content field #}
+                    {% if forms[post.id].content.vars.errors|length > 0 %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in forms[post.id].content.vars.errors %}
+                                <p>{{ error.message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    {# Hidden input for post ID #}
+                    <input type="hidden" name="post_id" value="{{ post.id }}">
+
+                    <button type="submit" class="btn btn-primary">Submit Comment</button>
+                {{ form_end(forms[post.id]) }}
+
+                {# Display tags for this post #}
+                {% if post.tags|length > 0 %}
+                    <h5>Tags:</h5>
+                    <ul class="list-inline">
+                        {% for tag in post.tags %}
+                            <li class="list-inline-item">
+                                <span class="badge bg-secondary">{{ tag.name }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No tags available.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to ensure the first letter of the content is uppercase
+            const commentInput = document.querySelector('textarea[name="comment[content]"]');
+
+            if (commentInput) {
+                commentInput.addEventListener('input', function() {
+                    // Capitalize the first letter of the input value
+                    let currentValue = commentInput.value;
+                    if (currentValue.length > 0) {
+                        commentInput.value = currentValue.charAt(0).toUpperCase() + currentValue.slice(1);
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}
+{% endblock %}

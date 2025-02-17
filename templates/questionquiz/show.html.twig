@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Questionquiz{% endblock %}
+
+{% block body %}
+    <h1>Questionquiz</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ questionquiz.id }}</td>
+            </tr>
+            <tr>
+                <th>Id_quiz</th>
+                <td>{{ questionquiz.idQuiz }}</td>
+            </tr>
+            <tr>
+                <th>Question</th>
+                <td>{{ questionquiz.question }}</td>
+            </tr>
+            <tr>
+                <th>Type_question</th>
+                <td>{{ questionquiz.typeQuestion }}</td>
+            </tr>
+            <tr>
+                <th>Option_1</th>
+                <td>{{ questionquiz.option1 }}</td>
+            </tr>
+            <tr>
+                <th>Option_2</th>
+                <td>{{ questionquiz.option2 }}</td>
+            </tr>
+            <tr>
+                <th>Option_3</th>
+                <td>{{ questionquiz.option3 }}</td>
+            </tr>
+            <tr>
+                <th>Option_4</th>
+                <td>{{ questionquiz.option4 }}</td>
+            </tr>
+            <tr>
+                <th>Bonne_reponse</th>
+                <td>{{ questionquiz.bonneReponse }}</td>
+            </tr>
+            <tr>
+                <th>Explication</th>
+                <td>{{ questionquiz.explication }}</td>
+            </tr>
+            <tr>
+                <th>Date_creation</th>
+                <td>{{ questionquiz.dateCreation ? questionquiz.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_questionquiz_index') }}">back to list</a>
+
+    <a href="{{ path('app_questionquiz_edit', {'id': questionquiz.id}) }}">edit</a>
+
+    {{ include('questionquiz/_delete_form.html.twig') }}
+{% endblock %}

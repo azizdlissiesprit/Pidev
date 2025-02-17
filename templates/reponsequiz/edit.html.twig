@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Reponsequiz{% endblock %}
+
+{% block body %}
+    <h1>Edit Reponsequiz</h1>
+
+    {{ include('reponsequiz/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_reponsequiz_index') }}">back to list</a>
+
+    {{ include('reponsequiz/_delete_form.html.twig') }}
+{% endblock %}

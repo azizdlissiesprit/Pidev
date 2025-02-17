@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit WebinarChat{% endblock %}
+
+{% block body %}
+    <h1>Edit WebinarChat</h1>
+
+    {{ include('webinar_chat/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_webinar_chat_index') }}">back to list</a>
+
+    {{ include('webinar_chat/_delete_form.html.twig') }}
+{% endblock %}

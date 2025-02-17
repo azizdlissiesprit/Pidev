@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Questionquiz index{% endblock %}
+
+{% block body %}
+    <h1>Questionquiz index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Id_quiz</th>
+                <th>Question</th>
+                <th>Type_question</th>
+                <th>Option_1</th>
+                <th>Option_2</th>
+                <th>Option_3</th>
+                <th>Option_4</th>
+                <th>Bonne_reponse</th>
+                <th>Explication</th>
+                <th>Date_creation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for questionquiz in questionquizzes %}
+            <tr>
+                <td>{{ questionquiz.id }}</td>
+                <td>{{ questionquiz.idQuiz }}</td>
+                <td>{{ questionquiz.question }}</td>
+                <td>{{ questionquiz.typeQuestion }}</td>
+                <td>{{ questionquiz.option1 }}</td>
+                <td>{{ questionquiz.option2 }}</td>
+                <td>{{ questionquiz.option3 }}</td>
+                <td>{{ questionquiz.option4 }}</td>
+                <td>{{ questionquiz.bonneReponse }}</td>
+                <td>{{ questionquiz.explication }}</td>
+                <td>{{ questionquiz.dateCreation ? questionquiz.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_questionquiz_show', {'id': questionquiz.id}) }}">show</a>
+                    <a href="{{ path('app_questionquiz_edit', {'id': questionquiz.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_questionquiz_new') }}">Create new</a>
+{% endblock %}

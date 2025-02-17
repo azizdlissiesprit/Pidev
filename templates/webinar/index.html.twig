@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Webinar index{% endblock %}
+
+{% block body %}
+    <h1>Webinar index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Debut</th>
+                <th>Duration</th>
+                <th>Category</th>
+                <th>Tags</th>
+                <th>Registration_required</th>
+                <th>Max_attendees</th>
+                <th>Platform</th>
+                <th>Lien</th>
+                <th>Recording_avaible</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for webinar in webinars %}
+            <tr>
+                <td>{{ webinar.id }}</td>
+                <td>{{ webinar.title }}</td>
+                <td>{{ webinar.description }}</td>
+                <td>{{ webinar.debut ? webinar.debut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ webinar.duration }}</td>
+                <td>{{ webinar.category }}</td>
+                <td>{{ webinar.tags }}</td>
+                <td>{{ webinar.registrationRequired ? 'Yes' : 'No' }}</td>
+                <td>{{ webinar.maxAttendees }}</td>
+                <td>{{ webinar.platform }}</td>
+                <td>{{ webinar.lien }}</td>
+                <td>{{ webinar.recordingAvaible ? 'Yes' : 'No' }}</td>
+                <td>{{ webinar.createdat ? webinar.createdat|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ webinar.updatedat ? webinar.updatedat|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_webinar_show', {'id': webinar.id}) }}">show</a>
+                    <a href="{{ path('app_webinar_edit', {'id': webinar.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_webinar_new') }}">Create new</a>
+{% endblock %}

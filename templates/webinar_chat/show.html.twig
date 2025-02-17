@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WebinarChat{% endblock %}
+
+{% block body %}
+    <h1>WebinarChat</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ webinar_chat.id }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ webinar_chat.message }}</td>
+            </tr>
+            <tr>
+                <th>Send_at</th>
+                <td>{{ webinar_chat.sendAt ? webinar_chat.sendAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_webinar_chat_index') }}">back to list</a>
+
+    <a href="{{ path('app_webinar_chat_edit', {'id': webinar_chat.id}) }}">edit</a>
+
+    {{ include('webinar_chat/_delete_form.html.twig') }}
+{% endblock %}

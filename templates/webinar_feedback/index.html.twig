@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WebinarFeedback index{% endblock %}
+
+{% block body %}
+    <h1>WebinarFeedback index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Rating</th>
+                <th>Comment</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for webinar_feedback in webinar_feedbacks %}
+            <tr>
+                <td>{{ webinar_feedback.id }}</td>
+                <td>{{ webinar_feedback.rating }}</td>
+                <td>{{ webinar_feedback.comment }}</td>
+                <td>
+                    <a href="{{ path('app_webinar_feedback_show', {'id': webinar_feedback.id}) }}">show</a>
+                    <a href="{{ path('app_webinar_feedback_edit', {'id': webinar_feedback.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_webinar_feedback_new') }}">Create new</a>
+{% endblock %}

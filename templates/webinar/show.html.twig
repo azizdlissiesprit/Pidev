@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Webinar{% endblock %}
+
+{% block body %}
+    <h1>Webinar</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ webinar.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ webinar.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ webinar.description }}</td>
+            </tr>
+            <tr>
+                <th>Debut</th>
+                <td>{{ webinar.debut ? webinar.debut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ webinar.duration }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ webinar.category }}</td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td>{{ webinar.tags }}</td>
+            </tr>
+            <tr>
+                <th>Registration_required</th>
+                <td>{{ webinar.registrationRequired ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Max_attendees</th>
+                <td>{{ webinar.maxAttendees }}</td>
+            </tr>
+            <tr>
+                <th>Platform</th>
+                <td>{{ webinar.platform }}</td>
+            </tr>
+            <tr>
+                <th>Lien</th>
+                <td>{{ webinar.lien }}</td>
+            </tr>
+            <tr>
+                <th>Recording_avaible</th>
+                <td>{{ webinar.recordingAvaible ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ webinar.createdat ? webinar.createdat|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ webinar.updatedat ? webinar.updatedat|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_webinar_index') }}">back to list</a>
+
+    <a href="{{ path('app_webinar_edit', {'id': webinar.id}) }}">edit</a>
+
+    {{ include('webinar/_delete_form.html.twig') }}
+{% endblock %}

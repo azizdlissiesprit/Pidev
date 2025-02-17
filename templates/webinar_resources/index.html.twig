@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WebinarResources index{% endblock %}
+
+{% block body %}
+    <h1>WebinarResources index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Url</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for webinar_resource in webinar_resources %}
+            <tr>
+                <td>{{ webinar_resource.id }}</td>
+                <td>{{ webinar_resource.title }}</td>
+                <td>{{ webinar_resource.type }}</td>
+                <td>{{ webinar_resource.url }}</td>
+                <td>
+                    <a href="{{ path('app_webinar_resources_show', {'id': webinar_resource.id}) }}">show</a>
+                    <a href="{{ path('app_webinar_resources_edit', {'id': webinar_resource.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_webinar_resources_new') }}">Create new</a>
+{% endblock %}

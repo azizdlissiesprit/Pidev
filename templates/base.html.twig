@@ -1,17 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
-
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Admin Panel{% endblock %}</title>
+        {# <link rel="stylesheet" href="/css/admin.css"> #}
+        <link rel="stylesheet" href="/css/admin.css">
+        <link rel="stylesheet" href="css/admin.css">
+        <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <script src="/js/admin.js"></script>
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="admin-container">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <h2>Admin Panel</h2>
+                <ul class="ul-list">
+                    <li><a href="{{ path('app_admin') }}">Dashboard</a></li>
+                    <li><a href="#">Utilisateurs</a></li>
+                    
+                    <!-- Dropdown for Forum -->
+                    <li class="dropdown">
+                        <a href="{{ path('app_home') }}" class="dropdown-toggle">Forum</a>
+                        <button class="dropdown-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></button>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="{{ path('app_post_index') }}">Posts</a></li>
+                            <li><a class="nav-link" href="{{ path('app_comment_index') }}">Comments</a></li>
+                            <li><a class="nav-link" href="{{ path('app_post_new') }}">Create New Post</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="#">Cours</a></li>
+                    <li><a href="#">Projet</a></li>
+
+
+
+                    <li>
+                        <div class="dropdown">
+                            <button class="dropbtn">Competitions</button>
+                            <div class="dropdown-content">
+                                <a href="{{ path('quiz_home') }}">Quiz</a>
+                                <a href="{{ path('question_home') }}">Questions</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li><a href="{{ path('app_webinar_index') }}">Webinair</a></li>
+                </ul>
+            </aside>
+            <!-- Main Content -->
+            <div class="admin-main">
+                <!-- Navbar -->
+                <nav class="admin-navbar">
+                    <span>Hello, Admin</span>
+                    <button id="darkModeToggle">
+                        <i id="themeIcon" class="fa-regular fa-moon"></i>
+                    </button>
+
+                </nav>
+                <!-- Page Content -->
+                <div class="admin-content">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
     </body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdown = document.querySelector('.dropdown');
+
+            dropdownBtn.addEventListener('click', function(event) {
+                event.stopPropagation();
+                dropdown.classList.toggle('active');
+            });
+
+            // Close the dropdown if clicked outside
+            document.addEventListener('click', function(event) {
+                if (!dropdown.contains(event.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+
 </html>

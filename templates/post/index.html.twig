@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Posts{% endblock %}
+
+{% block body %}
+    <h1>Liste des Posts</h1>
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Tags</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>{{ post.id }}</td>
+                    <td>{{ post.title }}</td>
+
+                    {# Display tags for this post #}
+                    <td>
+                        {% if post.tags|length > 0 %}
+                            {% for tag in post.tags %}
+                                <span class="badge bg-secondary">{{ tag.name }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span>Aucun tag</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <a href="{{ path('app_post_show', {id: post.id}) }}" class="btn btn-primary btn-sm">Voir</a>
+                        <a href="{{ path('app_post_edit', {id: post.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                        <form method="post" action="{{ path('app_post_delete', {id: post.id}) }}" style="display:inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+                            <button class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous vraiment supprimer ce post ?');">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucun post trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

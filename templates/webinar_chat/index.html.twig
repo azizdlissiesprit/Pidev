@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WebinarChat index{% endblock %}
+
+{% block body %}
+    <h1>WebinarChat index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Message</th>
+                <th>Send_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for webinar_chat in webinar_chats %}
+            <tr>
+                <td>{{ webinar_chat.id }}</td>
+                <td>{{ webinar_chat.message }}</td>
+                <td>{{ webinar_chat.sendAt ? webinar_chat.sendAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_webinar_chat_show', {'id': webinar_chat.id}) }}">show</a>
+                    <a href="{{ path('app_webinar_chat_edit', {'id': webinar_chat.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_webinar_chat_new') }}">Create new</a>
+{% endblock %}

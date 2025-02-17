@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reponsequiz{% endblock %}
+
+{% block body %}
+    <h1>Reponsequiz</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id_rep</th>
+                <td>{{ reponsequiz.idRep }}</td>
+            </tr>
+            <tr>
+                <th>Id_question</th>
+                <td>{{ reponsequiz.idQuestion }}</td>
+            </tr>
+            <tr>
+                <th>Reponse_choisie</th>
+                <td>{{ reponsequiz.reponseChoisie }}</td>
+            </tr>
+            <tr>
+                <th>Est_correcte</th>
+                <td>{{ reponsequiz.estCorrecte ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Date_reponse</th>
+                <td>{{ reponsequiz.dateReponse ? reponsequiz.dateReponse|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Points</th>
+                <td>{{ reponsequiz.points }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reponsequiz_index') }}">back to list</a>
+
+    <a href="{{ path('app_reponsequiz_edit', {'id_rep': reponsequiz.id_rep}) }}">edit</a>
+
+    {{ include('reponsequiz/_delete_form.html.twig') }}
+{% endblock %}

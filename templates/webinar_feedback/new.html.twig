@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New WebinarFeedback{% endblock %}
+
+{% block body %}
+    <h1>Create new WebinarFeedback</h1>
+
+    {{ include('webinar_feedback/_form.html.twig') }}
+
+    <a href="{{ path('app_webinar_feedback_index') }}">back to list</a>
+{% endblock %}

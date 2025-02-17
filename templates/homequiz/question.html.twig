@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Questions de Quiz{% endblock %}
+
+{% block body %}
+    <h1>Liste des Questions de Quiz</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for questionquiz in questions %}
+                <tr>
+                    <td>{{ questionquiz.question }}</td>
+                    <td>
+                        <a href="{{ path('app_questionquiz_show', {'id': questionquiz.id}) }}">Voir</a>
+                        <a href="{{ path('app_questionquiz_edit', {'id': questionquiz.id}) }}">Modifier</a>
+                        <form method="POST" action="{{ path('app_questionquiz_delete', {'id': questionquiz.id}) }}" style="display:inline;">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Aucune question de quiz trouvée.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_questionquiz_new') }}">Créer une nouvelle question</a>
+{% endblock %}

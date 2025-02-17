@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a New Post{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-4">Create a New Post</h1>
+
+        {{ form_start(form) }}
+        
+        <div class="mb-3">
+            {{ form_label(form.title, 'Title') }}
+            {{ form_widget(form.title, { 
+                'attr': { 
+                    'class': 'form-control', 
+                    'placeholder': 'Enter post title'
+                }
+            }) }}
+            {% if form.title.vars.errors|length > 0 %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.title.vars.errors %}
+                        <p>{{ error.message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.content, 'Content') }}
+            {{ form_widget(form.content, { 
+                'attr': { 
+                    'class': 'form-control', 
+                    'rows': 6, 
+                    'placeholder': 'Write your content here...'
+                }
+            }) }}
+            {% if form.content.vars.errors|length > 0 %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.content.vars.errors %}
+                        <p>{{ error.message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.tags, 'Tags') }}
+            {{ form_widget(form.tags, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+
+        <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-primary">Submit Post</button>
+        </div>
+        
+        {{ form_end(form) }}
+        
+        <div class="text-center mt-3">
+            <a href="{{ path('app_post_index') }}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+{% endblock %}

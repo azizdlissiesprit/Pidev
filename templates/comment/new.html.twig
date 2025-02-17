@@ -1,0 +1,77 @@
+{# templates/post/new.html.twig #}
+
+<h1>Create New Post</h1>
+
+{# Check if the post exists and display the title if needed #}
+{% if post %}
+    <h2>Title: {{ post.title }}</h2>
+{% endif %}
+
+{# Render the form for creating a new post #}
+{{ form_start(form) }}
+    <div class="mb-3">
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    {# Display tags as buttons to select #}
+    <h5>Select Tags:</h5>
+    <div id="tags-selection" class="mb-3">
+        {% for tag in allTags %}
+            <button type="button" class="btn btn-outline-secondary tag-btn" data-tag-id="{{ tag.id }}">
+                {{ tag.name }}
+            </button>
+        {% endfor %}
+    </div>
+
+    {# Display selected tags for this post #}
+    <h5>Selected Tags:</h5>
+    <ul id="selected-tags" class="list-inline">
+        {# This will be populated via JavaScript #}
+    </ul>
+
+    <input type="hidden" name="tags" id="tags-input" value="">
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+{{ form_end(form) }}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle tag selection
+            document.querySelectorAll('.tag-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    let tagId = this.dataset.tagId;
+                    let selectedTagsList = document.querySelector('#selected-tags');
+                    let tagsInput = document.querySelector('#tags-input');
+
+                    // Check if the tag is already selected
+                    let selectedTags = Array.from(selectedTagsList.children);
+                    let isSelected = selectedTags.some(function(tag) {
+                        return tag.textContent.trim() === this.textContent.trim();
+                    }, this);
+
+                    if (isSelected) {
+                        return;
+                    }
+
+                    // Create the list item for the selected tag
+                    let newTag = document.createElement('li');
+                    newTag.classList.add('list-inline-item');
+                    newTag.innerHTML = `<span class="badge bg-secondary">${this.textContent}</span>`;
+                    selectedTagsList.appendChild(newTag);
+
+                    // Update the hidden input field with the new tag id
+                    let currentTags = tagsInput.value ? tagsInput.value.split(',') : [];
+                    currentTags.push(tagId);
+                    tagsInput.value = currentTags.join(',');
+                });
+            });
+        });
+    </script>
+{% endblock %}
