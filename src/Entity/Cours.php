@@ -19,8 +19,16 @@ class Cours
     #[ORM\Column(length: 255)]
     private ?string $titre = null;
 
+    #[ORM\Column]
+    private ?float $price = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $img = null;
+
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
+    #[ORM\Column]
+    private ?bool $is_free = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $datecreation = null;
@@ -63,10 +71,30 @@ class Cours
     {
         return $this->titre;
     }
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
 
+    public function setPrice(float $price): static
+    {
+        $this->price = $price;
+
+        return $this;
+    }
     public function setTitre(string $titre): static
     {
         $this->titre = $titre;
+
+        return $this;
+    }
+    public function setImg(string $img): static
+    {
+        $this->img = $img;
 
         return $this;
     }
@@ -75,6 +103,7 @@ class Cours
     {
         return $this->description;
     }
+    
 
     public function setDescription(string $description): static
     {
@@ -92,6 +121,17 @@ class Cours
     {
         $this->datecreation = $datecreation;
 
+        return $this;
+    }
+
+    public function isFree(): ?bool
+    {
+        return $this->is_free;
+    }
+
+    public function setIsFree(bool $is_free): static
+    {
+        $this->is_free = $is_free;
         return $this;
     }
 

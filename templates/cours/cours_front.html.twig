@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/course.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+
+    <title>Courses List</title>
+</head>
+<body>
+<div class="included-container-for-nav">
+    {% include 'navbar.html.twig' %}
+    </div>
+    <div class="container">
+        <h1>Available Courses</h1>
+
+        <div class="course-list">
+            {% for course in courses %}
+                <div class="course-item">
+                    <div class="course-image">
+                        <img src="{{ course.img }}" alt="{{ course.titre }}">
+                    </div>
+                    <div class="course-details">
+                        <h2>{{ course.titre }}</h2>
+                        <p>{{ course.description }}</p>
+
+                        <div class="course-reviews">
+                            <h3>Reviews</h3>
+                            <ul>
+                                {% for review in course.reviews %}
+                                    <li>
+                                        <strong>{{ review.user_name }}:</strong> 
+                                        <span>{{ review.comment }}</span> 
+                                        <em>Rating: {{ review.rating }}/5</em>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <div class="course-price">
+                            {% if course.isFree() %}
+                                <span class="free-course">Free Enrollment</span>
+                            {% else %}
+                                <span class="price">${{ course.price }}</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="course-action">
+                            {% if course.isFree() %}
+                                <!-- Temporary link to bypass the route -->
+                                <a href="#" class="enroll-btn">Enroll Now</a>
+                            {% else %}
+                                <!-- Temporary link to bypass the route -->
+                                <a href="#" class="pay-btn">Pay Now</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>No courses available at the moment.</p>
+            {% endfor %}
+        </div>
+         <footer>
+        <p>&copy; {{ "now"|date("Y") }} Your Website</p>
+    </footer>
+    </div>
+
+   
+
+    <script src="/path/to/your/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Course</title>
+    <link rel="stylesheet" href="{{ asset('css/add_course.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+</head>
+<body>
+
+<div class="included-container-for-nav">
+    {% include 'navbar.html.twig' %}
+</div>
+
+<div class="form-container">
+    <h1>Add a New Course</h1>
+    
+    <form action="{{ path('app_cours_new') }}" method="POST" enctype="multipart/form-data">
+        {{ form_start(form) }}
+
+        <div class="form-group">
+            {{ form_row(form.titre) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.description) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.is_free) }}
+        </div>
+
+        <div class="form-group" id="price-group">
+            {{ form_row(form.price) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.img) }}
+        </div>
+
+        <button type="submit">Add Course</button>
+
+        {{ form_end(form) }}
+    </form>
+</div>
+
+<script>
+    const isFreeCheckbox = document.getElementById('cours_is_free');  // Target the checkbox by its ID
+    const priceGroup = document.getElementById('price-group'); // Target the price input group
+    
+    // Initialize the price input visibility based on the checkbox state
+    if (isFreeCheckbox.checked) {
+        priceGroup.style.display = 'none'; // Hide the price input if the course is free
+    }
+
+    // Hide price input and set price to 0 if the course is free
+    isFreeCheckbox.addEventListener('change', function() {
+        const priceInput = document.getElementById('cours_price'); // Get the price input field
+        if (this.checked) {
+            priceGroup.style.display = 'none';  // Hide price input when free
+            priceInput.value = 0; // Set price to 0 when the course is free
+        } else {
+            priceGroup.style.display = 'block';  // Show price input when not free
+        }
+    });
+</script>
+
+</body>
+</html>

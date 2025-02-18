@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscriptioncours index{% endblock %}
+
+{% block body %}
+    <h1>Inscriptioncours index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                 <th>Nom de l'utilisateur</th>
+                 <th>Nom du cours</th>
+                <th>Dateinscription</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for inscriptioncour in inscriptioncours %}
+            <tr>
+                <td>{{ inscriptioncour.id }}</td>
+                <td>{{ inscriptioncour.iduser ? inscriptioncour.iduser.name : 'Utilisateur inconnu' }}</td>  {# Display User Name #}
+                <td>{{ inscriptioncour.iduser ? inscriptioncour.idcours.titre : 'cours non trouvee' }}</td>  {# Display User Name #}
+                <td>{{ inscriptioncour.dateinscription ? inscriptioncour.dateinscription|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_inscriptioncours_show', {'id': inscriptioncour.id}) }}">show</a>
+                    <a href="{{ path('app_inscriptioncours_edit', {'id': inscriptioncour.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_inscriptioncours_new') }}">Create new</a>
+{% endblock %}
